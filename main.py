@@ -17,70 +17,54 @@ app = dash.Dash(__name__, external_stylesheets=['https://codepen.io/chriddyp/pen
 app.layout = html.Div([
    dcc.Graph(id='histoMainGraph'),  
    html.Div([
-      # radio button choix des valuers
-      dcc.RadioItems(
-         options=[
-            {'label': 'jour', 'value': 'jour'},
-            {'label': 'mois', 'value': 'mois'},
-            # {'label': 'hrmn', 'value': 'hrmn'},
-            {'label': 'Heures', 'value': 'rounded'},
-            {'label': 'Luminosité', 'value':'lum'},
-            {'label': 'Condition Atmosphérique', 'value':'atm'},
-            {'label': 'Type de collision', 'value':'col'},
+      # dropdown choix des valuers
+      html.Div([
+         html.Label('Valeurs à observer', htmlFor='histoValuesParamDropdown'),
+         dcc.Dropdown(id="histoValuesParamDropdown",
+                     options = [{'label':label[0], 'value':label[1]} for label in classMap.observableValuesLabels.items()],
+                     value='jour',
+                     style={'width':250, 'textAlign':'left'}), 
+      ], style={'textAlign': 'center'}),
 
-            {'label': 'Catégorie de route', 'value':'catr'},
-            {'label': 'Régime de circulation', 'value':'circ'},
-            {'label': 'Nombre total de voies de circulation', 'value':'nbv'},
-            {'label': 'existence d’une voie réservée', 'value':'vosp'},
-            {'label': 'déclivité de la route', 'value':'prof'},
-            {'label': 'Tracé en plan', 'value':'plan'},
-            {'label': 'Etat de la surface', 'value':'surf'},
-            {'label': 'Vitesse maximale autorisée', 'value':'vma'},
-
-            {'label': 'Gravité de blessure', 'value':'grav'},           
-            {'label': 'Sexe de l\'usager', 'value':'sexe'}, 
-            {'label': 'Année de naissance de l\'usager', 'value':'an_nais'}, 
-            {'label': 'Motif du déplacement', 'value':'trajet'}, 
-            {'label': 'Point de choc initial', 'value':'choc'}, 
-         ],
-         value='jour',
-         # labelStyle={'display': 'inline-block'},
-         id='histoValuesParamRadioBtn'
-      ),
-      # radio button choix comparaison
-      dcc.RadioItems(
-         options=[
-            {'label': 'None', 'value': ''},
-            {'label': 'Sexe', 'value': 'sexe'},
-            {'label': 'Gravité de blessure', 'value':'grav'},     
-         ],
-         value='',
-         labelStyle={'display': 'inline-block'},
-         id='histoColorParamRadioBtn'
-      ),
+      # dropdown choix comparaison
+      html.Div([
+         html.Label('Comparateur', htmlFor='histoColorParamDropdown'),
+         dcc.Dropdown(id='histoColorParamDropdown',
+                     options=[
+                        {'label': 'None', 'value': ''},
+                        {'label': 'Sexe', 'value': 'sexe'},
+                        {'label': 'Gravité de blessure', 'value':'grav'},     
+                     ],
+                     value='',
+                     style={'width':250, 'textAlign':'left'}), 
+      ], style={'display': 'block', 'marginLeft': 10, 'textAlign': 'center'}),
       # radio button paramètre d'affichage
-      dcc.RadioItems(
-         options=[
-            {'label': 'Nombre', 'value': ''},
-            {'label': 'Probability', 'value': 'probability'},
-            {'label': 'Percent', 'value': 'percent'},
-         ],
-         value='percent',
-         labelStyle={'display': 'inline-block'},
-         id='histoHistnormParamRadioBtn'
-      ),
+      html.Div([
+         html.Label('Paramètre d\'affichage', htmlFor='histoHistnormParamRadioBtn'),
+         dcc.RadioItems(id='histoHistnormParamRadioBtn',
+            options=[
+               {'label': 'Nombre', 'value': ''},
+               {'label': 'Probability', 'value': 'probability'},
+               {'label': 'Percent', 'value': 'percent'},
+            ],
+            value='percent',
+            style={'textAlign': 'left', 'margin':'auto'}
+         ),
+      ], style={'display':'flex', 'flexDirection': 'column', 'marginLeft': 10, 'textAlign': 'center'}),
       # radio button paramètre d'affiche multiple
-      dcc.RadioItems(
-         options=[
-            {'label': 'Stack', 'value': 'stack'},
-            {'label': 'Group', 'value': 'group'},
-            {'label': 'Overlay', 'value': 'overlay'},
-         ],
-         value='stack',
-         labelStyle={'display': 'inline-block'},
-         id='histoBarmodeParamRadioBtn'
-      ),       
-   ], style={'columnCount': 3}),
+      html.Div([
+         html.Label('Paramètre comparateur', htmlFor='histoBarmodeParamRadioBtn'),
+         dcc.RadioItems(id='histoBarmodeParamRadioBtn',
+            options=[
+               {'label': 'Stack', 'value': 'stack'},
+               {'label': 'Group', 'value': 'group'},
+               {'label': 'Overlay', 'value': 'overlay'},
+            ],
+            value='stack',
+            style={'textAlign': 'left', 'margin':'auto'}
+         ),     
+      ], style={'display':'flex', 'flexDirection': 'column', 'marginLeft': 10, 'textAlign': 'center'}),
+   ], style={'display': 'flex', 'justifyContent':'center' }),   
 
    html.H1 ('Application', style={'textAlign': 'center'}), 
    html.Div([
@@ -108,17 +92,17 @@ app.layout = html.Div([
          html.Button('Go', id='WTDrequest', n_clicks=0, style={'marginLeft':6}),
          ], style={'display': 'flex', 'justifyContent':'center', 'alignItems':'center'}),
    html.Div([
-        dcc.Graph(id='MapFocusPie'),
-        dcc.Graph(id='MapFocusLine'),
-        dcc.Graph(id='MapFocusPieChoc'),
-        ], style={'columnCount': 3}),
-])
+        dcc.Graph(id='MapFocusPie', style={'flex': '1 1 0', 'width': 0}),
+        dcc.Graph(id='MapFocusLine', style={'flex': '1 1 0', 'width': 0}),
+        dcc.Graph(id='MapFocusPieChoc', style={'flex': '1 1 0', 'width': 0}),
+        ], style={'display': 'flex',}),
+], style={'width': '90%', 'margin':'auto'})
 
 # permet de changer l'histogramme à l'uppuie des radio button
 @app.callback(
    Output('histoMainGraph', 'figure'),
-   [Input('histoValuesParamRadioBtn', 'value'),
-    Input('histoColorParamRadioBtn', 'value'),
+   [Input('histoValuesParamDropdown', 'value'),
+    Input('histoColorParamDropdown', 'value'),
     Input('histoHistnormParamRadioBtn', 'value'),
     Input('histoBarmodeParamRadioBtn', 'value')],
 )

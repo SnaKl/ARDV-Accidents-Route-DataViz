@@ -44,6 +44,28 @@ class ClassMap:
       'trajet' : {-1:"Non renseigné", 0:"Non renseigné", 1:"Domicile – travail",  2:"Domicile – école ", 3:"Courses – achats ", 4:"Utilisation professionnelle ", 5:"Promenade – loisirs ", 9:"Autre"},
       'choc': {-1:'Non renseigné', 0:'Aucun', 1:'Avant', 2:'Avant droit', 3:'Avant gauche', 4:'Arrière', 5:'Arrière droit', 6:'Arrière gauche', 7:'Côté droit', 8:'Côté gauche', 9:'Chocs multiples (tonneaux)'}
    }
+   observableValuesLabels = { 'Jour':'jour', 
+                              'Mois':'mois', 
+                              'Heures': 'rounded', 
+                              'Luminosité':'lum',
+                              'Condition Atmosphérique':'atm',
+                              'Type de collision':'col',
+                              'Catégorie de route':'catr',
+                              'Régime de circulation':'circ',
+                              'Nombre total de voies de circulation':'nbv',
+                              'Existence d’une voie réservée':'vosp',
+                              'Déclivité de la route':'prof',
+                              'Tracé en plan':'plan',
+                              'Etat de la surface':'surf',
+                              'Vitesse maximale autorisée':'vma',
+                              'Gravité de blessure':'grav',
+                              'Sexe de l\'usager':'sexe',
+                              'Année de naissance de l\'usager':'an_nais',
+                              'Motif du déplacement':'trajet',
+                              'Point de choc initial':'choc'
+                               }
+
+
 
    def __init__(self):
       # arondis à l'heure près. ex: 02:54 -> 2 
