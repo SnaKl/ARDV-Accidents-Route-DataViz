@@ -6,11 +6,19 @@ Dans le cadre du cours de Python à ESIEE Paris, troisième année Informatique 
 <br>
 Présence d'un histogramme et d'une représentation géolocalisée à partir d'un jeu de données téléchargé sur [datagouv.fr](https://www.data.gouv.fr/fr/datasets/bases-de-donnees-annuelles-des-accidents-corporels-de-la-circulation-routiere-annees-de-2005-a-2019/#_). Ces fichiers CSV représentent les bases de données annuelles des accidents corporels de la circulation routière (années de 2005 à 2019).<br>
 <br>
-**????????????????PROBLEMATIQUE???????????????????**
+**Quelles caractéristiques relèvent les facteurs d'accidents de la route en France ?**
 <br>
 Dans ce cadre, nous exploiterons les données et donnerons la possibilité à l'utilisateur de comparer différentes informations entre elles pour mettre en avant les réponses à notre problématique.
 
 ## Rapport d'analyse 
+
+Grâce à la base de données très complète, nous avons pu proposer des facteurs de comparaison très variés (date, luminosité, condition atmosphérique, type de collision... (cf partie facteurs) grâce auxquels nous sommes en mesure d'établir certaines conclusions :
+<br>
+* Les points de chocs les plus meurtriers sont incontestablements les chocs avant, avec un pourcentage de ??????????. A l'inverse, un choc se produisant au côté gauche de la voiture est le moins critique, avec un taux de ??? %.
+* Les mois les plus meurtriers sont Juin et Juillet, il révèlent le plus haut pourcentage de décès de la route (???% pour Juin et ???? pour Juillet). En adéquation avec la période des départs en vacances, nous pouvons facilement en déduire que les accidents se produisent plus fréquemment et à une allure plus meurtrière dans ce contexte. En revanche, il est à noter que le mois d'Août affiche une baisse considérable du taux de décès, et montre alors que les vacanciers sont majoritairement tranquilles et ne prennent certainement pas leur voitures. Le pic d'accident meurtrier reprend de plus belle en septembre, lors du retour de vacances.
+* 
+
+Nous permettons à l'utilisateur de comparer des données très larges, répondant à des questionnements au delà de la problématique générale. Ainsi, nous avons pu relever que les jours les "plus meurtriers" était le 20 et 26, 
 
 ## User Guide
 
@@ -70,3 +78,4 @@ Ainsi, les fichiers geojson *communes.geojson*, *departements.geojson* et *regio
 
 > ligne de code
 
+##Titre <a name="facteurs"></a>
