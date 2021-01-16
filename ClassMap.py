@@ -42,6 +42,7 @@ class ClassMap:
       'grav' : {1:"Indemne", 2:"Tué", 3:"Blessé hospitalisé", 4:"Blessé léger"},
       'sexe' : {1:"Masculin", 2:"Féminin"},
       'trajet' : {-1:"Non renseigné", 0:"Non renseigné", 1:"Domicile – travail",  2:"Domicile – école ", 3:"Courses – achats ", 4:"Utilisation professionnelle ", 5:"Promenade – loisirs ", 9:"Autre"},
+      'choc': {-1:'Non renseigné', 0:'Aucun', 1:'Avant', 2:'Avant droit', 3:'Avant gauche', 4:'Arrière', 5:'Arrière droit', 6:'Arrière gauche', 7:'Côté droit', 8:'Côté gauche', 9:'Chocs multiples (tonneaux)'}
    }
 
    def __init__(self):

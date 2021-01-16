@@ -41,6 +41,7 @@ app.layout = html.Div([
             {'label': 'Sexe de l\'usager', 'value':'sexe'}, 
             {'label': 'Année de naissance de l\'usager', 'value':'an_nais'}, 
             {'label': 'Motif du déplacement', 'value':'trajet'}, 
+            {'label': 'Point de choc initial', 'value':'choc'}, 
          ],
          value='jour',
          # labelStyle={'display': 'inline-block'},
@@ -106,6 +107,11 @@ app.layout = html.Div([
          dcc.Dropdown(id='WTDdown',options=[{'label':'Zoom', 'value':'Zoom'}, {'label':'Focus', 'value':'Focus'}], style={'width':250, 'textAlign':'left', 'marginLeft':2},multi=True), 
          html.Button('Go', id='WTDrequest', n_clicks=0, style={'marginLeft':6}),
          ], style={'display': 'flex', 'justifyContent':'center', 'alignItems':'center'}),
+   html.Div([
+        dcc.Graph(id='MapFocusPie'),
+        dcc.Graph(id='MapFocusLine'),
+        dcc.Graph(id='MapFocusPieChoc'),
+        ], style={'columnCount': 3}),
 ])
 
 # permet de changer l'histogramme à l'uppuie des radio button
@@ -202,6 +208,9 @@ def UpdateMultiOptions(values):
 # - crée une sorte d'historique pour revenir à la vision précedante sur la map
 @app.callback(
    Output('map', 'figure'), 
+   Output('MapFocusPie', 'figure'), 
+   Output('MapFocusLine', 'figure'), 
+   Output('MapFocusPieChoc', 'figure'), 
    Output('InfoDropdown', 'value'),
    Output('InfoDropdown', 'options'),
    Output('WTDdown', 'options'),
@@ -226,18 +235,18 @@ def visualMultiFunction(visualButton, multiVisualChoice, map, WTDdownValue, WTDB
    if(button_id == 'WTDdown'):
       # si aucune valuers renvoie les valuers par defaut
       if not WTDdownValue:
-         return no_update, no_update, no_update, [{'label':'Zoom', 'value':'Zoom'}, {'label':'Focus', 'value':'Focus'}]
+         return no_update, no_update, no_update, no_update, no_update, no_update, [{'label':'Zoom', 'value':'Zoom'}, {'label':'Focus', 'value':'Focus'}]
       # si la première valuer n'est pas zoom ou focus, return valuers par défault
       if WTDdownValue[0] not in ['Zoom', 'Focus']:
-         return no_update, no_update, no_update, [{'label':'Zoom', 'value':'Zoom'}, {'label':'Focus', 'value':'Focus'}]
+         return no_update, no_update, no_update, no_update, no_update, no_update, [{'label':'Zoom', 'value':'Zoom'}, {'label':'Focus', 'value':'Focus'}]
       # si premiere valuers focus supprime les autre options
       if WTDdownValue[0] == 'Focus':
-         return no_update, no_update, no_update, [{'label':'Focus', 'value':'Focus'}]
+         return no_update, no_update, no_update, no_update, no_update, no_update, [{'label':'Focus', 'value':'Focus'}]
       # si 2 valeurs ne peut plus en choisir d'autre
       if len(WTDdownValue)>=2:
-         return no_update, no_update, no_update, [{'label':value, 'value':value} for value in WTDdownValue]
+         return no_update, no_update, no_update, no_update, no_update, no_update, [{'label':value, 'value':value} for value in WTDdownValue]
       # return zoom et autre possibilité
-      return no_update, no_update, no_update, [{'label':'Zoom', 'value':'Zoom'}, {'label':'Color', 'value':'Color'}, {'label':'Point', 'value':'Point'}]
+      return no_update, no_update, no_update, no_update, no_update, no_update, [{'label':'Zoom', 'value':'Zoom'}, {'label':'Color', 'value':'Color'}, {'label':'Point', 'value':'Point'}]
 
    # si l'evenèment correspond au click sur le visualButton        
    if(button_id == 'visualButton'):
@@ -253,7 +262,7 @@ def visualMultiFunction(visualButton, multiVisualChoice, map, WTDdownValue, WTDB
          maxy = max(caracteristics.lat)
          maxx = max(caracteristics.long)
          zoom = -math.sqrt((maxx - minx) * (maxy - miny))*2+11
-         return classMap.MakePlotMap(caracteristics, zoom), [], [], []
+         return classMap.MakePlotMap(caracteristics, zoom), no_update, no_update, no_update, [], [], []
       # si color est multiVisualChoice inférieur à 2 ne fait rien 
       if len(multiVisualChoice) < 2:
          raise PreventUpdate
@@ -263,14 +272,14 @@ def visualMultiFunction(visualButton, multiVisualChoice, map, WTDdownValue, WTDB
                                  'value':classMap.departmentsMapInfo['mergeText'][i]} 
                                  for i in range(classMap.departmentsMapInfo['size'])]
          optionsWTDdown = [{'label':'Zoom', 'value':'Zoom'}, {'label':'Focus', 'value':'Focus'}]
-         return classMap.departmentsMap, [], optionsInfoDropdown, optionsWTDdown
+         return classMap.departmentsMap, no_update, no_update, no_update, [], optionsInfoDropdown, optionsWTDdown
       # si choix Commune affiche color commune
       if(multiVisualChoice[1] == 'Commune'):
          optionsInfoDropdown = [{ 'label':classMap.communesMapInfo['mergeText'][i], 
                                  'value':classMap.communesMapInfo['mergeText'][i]} 
                                  for i in range(classMap.communesMapInfo['size'])]
          optionsWTDdown = [{'label':'Zoom', 'value':'Zoom'}, {'label':'Focus', 'value':'Focus'}]
-         return classMap.communesMap, [], optionsInfoDropdown, optionsWTDdown
+         return classMap.communesMap, no_update, no_update, no_update, [], optionsInfoDropdown, optionsWTDdown
 
       raise PreventUpdate
 
@@ -281,9 +290,9 @@ def visualMultiFunction(visualButton, multiVisualChoice, map, WTDdownValue, WTDB
       type = map['points'][0]['customdata'][0]
       # si clique sur un point ne fait rien
       if(type.endswith('_point')): 
-         return no_update, map['points'][0]['hovertext'], no_update, no_update
+         return no_update, no_update, no_update, no_update, map['points'][0]['hovertext'], no_update, no_update
       # séléctionne automatiquement l'élement cliquer
-      return no_update, "{} {}".format(map['points'][0]['location'], map['points'][0]['hovertext']), no_update, no_update
+      return no_update, no_update, no_update, no_update, "{} {}".format(map['points'][0]['location'], map['points'][0]['hovertext']), no_update, no_update
 
 
    if(button_id == 'WTDrequest'):
@@ -300,13 +309,52 @@ def visualMultiFunction(visualButton, multiVisualChoice, map, WTDdownValue, WTDB
       
       # Si choisie focus adapte les graphiques
       if(WTDdownValue[0] == 'Focus'):
-         raise PreventUpdate
-      elif len(WTDdownValue) <2:
+         try:
+            querry = InfoDropdownValue.split()[0]
+            if not querry.endswith('A') and not querry.endswith('B'):
+               querry = str(int(querry))
+
+            if len(querry) < 4:
+               dataQuery = classMap.allMerged[classMap.allMerged.dep == querry]
+            else:
+               dataQuery = classMap.allMerged[classMap.allMerged.com == querry]
+         except:
+            dataQuery = classMap.allMerged[classMap.allMerged.Num_Acc == InfoDropdownValue]
+
+         
+         mapFocusPie = px.pie(values=dataQuery.grav.value_counts().values, names=dataQuery.grav.value_counts().index)
+         
+         mapFocusLine = px.line(dataQuery.mois.value_counts().sort_index(), y="mois")
+         mapFocusLine.update_layout(title='Average High and Low Temperatures in New York',
+                                    xaxis_title='Month',
+                                    yaxis_title='Nombre d\'accident')
+
+                                    
+         MapFocusPieChoc = px.pie(values=dataQuery.choc.value_counts(), names=dataQuery.choc.value_counts().index)
+
+         # raise PreventUpdate
+         return no_update, mapFocusPie, mapFocusLine, MapFocusPieChoc, no_update, no_update, no_update
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         
+      elif len(WTDdownValue) < 2:
          raise PreventUpdate
       # Si Zoom point affiche la map point
       elif (WTDdownValue[1] == 'Point'):
          caracteristics = classMap.csv['characteristics']
-         if len(location) < 4: 
+         if len(str(location)) < 4: 
             caracteristics['type'] = ['department_point' for string in range(len(caracteristics.index))]
          else:
             caracteristics['type'] = ['commune_point' for string in range(len(caracteristics.index))]
@@ -314,17 +362,19 @@ def visualMultiFunction(visualButton, multiVisualChoice, map, WTDdownValue, WTDB
          optionsInfoDropdown = [{ 'label':datas['Num_Acc'][ind], 
                                  'value':datas['Num_Acc'][ind]} 
                                     for ind in datas.index]
+         if datas.empty:
+            raise PreventUpdate
          miny = min(datas.lat) 
          minx = min(datas.long) 
          maxy = max(datas.lat)
          maxx = max(datas.long)
          zoom = -math.sqrt((maxx - minx) * (maxy - miny))*2+11
-         return classMap.MakePlotMap(datas, zoom), [], optionsInfoDropdown, [{ 'label':'Focus', 'value':'Focus'}]
+         return classMap.MakePlotMap(datas, zoom), no_update, no_update, no_update, [], optionsInfoDropdown, [{ 'label':'Focus', 'value':'Focus'}]
       
       # sinon color
       else:
          # si len < 4 c'est un departement
-         if len(location) < 4:
+         if len(str(location)) < 4:
             accident_com_location = classMap.accident_com.loc[classMap.accident_com.insee_com.astype(str).str.startswith(str(location))]
             communes_location = classMap.geojson['communes'].loc[classMap.geojson['communes'].insee_com.astype(str).str.startswith(str(location))]   
             optionValues = communes_location.loc[:, ['insee_com', 'nom_comm']]
@@ -337,7 +387,7 @@ def visualMultiFunction(visualButton, multiVisualChoice, map, WTDdownValue, WTDB
                      classMap.GetZoom(communes_location), classMap.GetCenterCoords(classMap.GetAntipodes(communes_location)), 1,
                      {'insee_com':'Code INSEE', 'postal_code':'Code postal', 'nb_accident': 'Nombre d\'accidents'})
 
-            return makeMap, [], optionsInfoDropdown, no_update
+            return makeMap, no_update, no_update, no_update, [], optionsInfoDropdown, no_update
          # c'est une commune
          else:
             caracteristics = classMap.csv['characteristics']
@@ -351,7 +401,7 @@ def visualMultiFunction(visualButton, multiVisualChoice, map, WTDdownValue, WTDB
             maxy = max(datas.lat)
             maxx = max(datas.long)
             zoom = -math.sqrt((maxx - minx) * (maxy - miny))*2+11
-            return classMap.MakePlotMap(datas, zoom), [], optionsInfoDropdown, [{ 'label':'Focus', 'value':'Focus'}]
+            return classMap.MakePlotMap(datas, zoom), no_update, no_update, no_update, [], optionsInfoDropdown, [{ 'label':'Focus', 'value':'Focus'}]
 
    raise PreventUpdate
 
