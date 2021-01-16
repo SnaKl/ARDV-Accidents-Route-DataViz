@@ -16,35 +16,53 @@ Grâce à la base de données très complète, nous avons pu proposer des facteu
 <br>
 * Les points de chocs les plus meurtriers sont incontestablements les chocs avant, avec un pourcentage de ??????????. A l'inverse, un choc se produisant au côté gauche de la voiture est le moins critique, avec un taux de ??? %.
 * Les mois les plus meurtriers sont Juin et Juillet, il révèlent le plus haut pourcentage de décès de la route (???% pour Juin et ???? pour Juillet). En adéquation avec la période des départs en vacances, nous pouvons facilement en déduire que les accidents se produisent plus fréquemment et à une allure plus meurtrière dans ce contexte. En revanche, il est à noter que le mois d'Août affiche une baisse considérable du taux de décès, et montre alors que les vacanciers sont majoritairement tranquilles et ne prennent certainement pas leur voitures. Le pic d'accident meurtrier reprend de plus belle en septembre, lors du retour de vacances.
-* 
-
-Nous permettons à l'utilisateur de comparer des données très larges, répondant à des questionnements au delà de la problématique générale. Ainsi, nous avons pu relever que les jours les "plus meurtriers" était le 20 et 26, 
+* Nous démontrons qu'en prenant compte de tous les types de blessures confondus (indemne, meurtrier, blesser léger etc...), la ville est la zone la plus dangereuse avec un taux de ????% d'accidents.
+* La vitesse la plus meurtrière est inconstétablement 80-90 km/h, où ????% de victimes sont décédés contre ???% pour les autres kilométrages allant jusqu'à 150 km/h. La vitesse de 50 km/h en seconde place démontre bien notre précédente constatation et le danger de la ville face aux automobilistes.
+* Les femmes ont en moyenne moins d'accidents que les hommes tout au long de leur vie. Cependant, alors que la courbe des accidents d'hommes passés 55 ans se verra baisser, celle des femmes monte à ce moment-là.
+<br>
+Nous permettons à l'utilisateur de comparer des données très larges, répondant à des questionnements au delà de la problématique générale. Ainsi, nous avons pu relever que les jours les "plus meurtriers" était le 20 et 26, BLABLABLA ...........
 
 ## User Guide
 
-### Pré-requis
+### L'installation du programme
+#### Pré-requis
 
 Avoir installé le module python sur Visual Studio Code<br>
 Avoir installé un gestionnaire de paquet pour python (ici pip)
 
-### Installer projet via git
+#### Installer projet via git
 Dans Visual Studio Code, clôner le répertoire git : https://github.com/SnaKl/ProjectPython, branche *master*
 
-### Installer geopandas
+#### Installer geopandas
 `pip install geopandas`
 
-### Installer plotly
+#### Installer plotly
 
 `pip install plotly`<br>
 Si une version antérieure est déjà installée : `pip install plotly --upgrade`
 
-### Installer dash
+#### Installer dash
 `pip install dash`
 
-### Lancement du dashboard
+#### Lancement du dashboard
 Il ne reste plus qu'à lancer le programme (run)<br>
 <br>
-Il est à noter que le lancement du dashboard est **très lent**, dû à toutes les données chargées. Une bonne dizaine de minutes est à prévoir. 
+Il est à noter que le lancement du dashboard est **très lent**, dû à toutes les données chargées, une bonne dizaine de minutes est à prévoir (temps variable en fonction de l'appareil sur lequel est lancé le programme). Le fait de charger tous le dashboard dès son lancement permet ainsi à l'utilisateur d'effectuer des traitements et comparaisons de données dans un temps quasi instantanné par la suite.
+
+### L'utilisation du dashboard
+
+#### Son organisation
+
+Le dashboard se compose de trois grandes parties :
+- **Histogramme général des accidents de la route**
+   <br>
+   Cet histogramme permet de 
+   <br>
+- **Carte des accidents**
+- grthr
+> par la suite 
+
+#### Ses fonctionnalités
 
 ## Developper Guide
 
@@ -57,18 +75,13 @@ La base de données complète représente 11 fichiers CSV, répartis en deux dos
     * *usagers-2019.csv* : les usagers impliqués dans l'accident (conducteur, passagers, passants etc...)
     * *vehicules-2019.csv* : les véhicules impliqués dans l'accident
     <br>
-Le document PDF *description-des-bases-de-donnees-onisr-annees-2005-a-2019.pdf* donne une description complète des différentes tabs<br>
+Le document PDF *description-des-bases-de-donnees-onisr-annees-2005-a-2019.pdf* donne une description complète des différentes tabs des CSV, un atout majeur pour avoir une vue d'ensemble sur les différents facteurs pouvant être rajoutés dans le dashboard.<br>
     
-  * **insee**
-    * *arrondissement2020.csv*
-    * *canton2020.csv*
-    * *communes2020.csv*
-    * *departement2020.csv*
-    * *mvtcommune2020.csv*
-    * *pays2020.csv*
-    * *region2020.csv*
-    
- * Le document CSV *correspondance-code-insee-code-postal*, provenant de [datagouv.fr](https://www.data.gouv.fr/fr/datasets/correspondance-code-insee-code-postal/) assure la correspondance entre les codes postaux et codes INSEE des communes Françaises.
+ * Le document CSV *correspondance-code-insee-code-postal*, provenant de [datagouv.fr](https://www.data.gouv.fr/fr/datasets/correspondance-code-insee-code-postal/) assure la correspondance entre les codes postaux et les documents GeoJSON.
+ 
+### Les documents geojson
+
+
  
  ### Le dossier geojson
 
