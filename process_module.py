@@ -1,4 +1,15 @@
-# pylint: disable=C0301
+# pylint: disable=C0301, R0911, R0912, R0913, R0914, R0915
+
+# disable pylint :
+# line too long : C0301
+# pylint problemes:
+# fonction avec trop d'arguments (make_map, make_plot_map)
+# résolutions possible:
+# revoir les fonctions tranformer les paramètres en dict
+# class avec aucune méthode publique
+# résolutions possible:
+# - transformer la classe en dataclass
+# - supprimer toutalement la classe et revoir la structure
 """
     Module pour aider à la création du dashboard
     permet une exécution rapide dans le dashboard
@@ -11,6 +22,9 @@ from shapely.geometry import Polygon
 import geopandas as gpd
 import pandas as pd
 import plotly.express as px
+
+import dash_core_components as dcc
+import dash_html_components as html
 
 #  labels dctionary
 dict_labels = {
@@ -159,13 +173,13 @@ observable_values_labels = {
 
 def get_all_coords(geo_data):
     """
-    Retourne toutes les coordonnées possibles des polygones
+    Retourne toute les coordonées possible des polygones
 
     Parameters:
         geo_data: polygones
 
     Returns:
-        [coordonnées de tous les polygones]
+        [cordonnées de tous les polygones]
     """
     coords = []
     for geometry in geo_data["geometry"]:
@@ -268,13 +282,13 @@ def make_map(
     returne la map color en fonction des paramètres (choropleth_mapbox)
 
     Parameters:
-        datas: données à observer
+        datas: donnée à observer
         geo_data: geo_data
         feature_id_key: keys match entre geo_datas et datas (properties.'location')
         location: keys datas
         hover_name: nom au survol
         hover_data: [donnée à afficher au survol]
-        data_color: donnée utilisée pour la couleur
+        data_color: donnée utilisé pour la couleur
         zoom_choice: zoom map
         coords: coordonnée de la map
         opacity_choice: opacité sur la map
@@ -304,11 +318,11 @@ def make_map(
 
 def make_plot_map(datas, zoom_choice):
     """
-    retourne la map scatter des accidents de la route
+    returne la map scatter des accident de la route
 
     Parameters
     ----------
-        datas : données avec Num_Acc, latitude, longitude
+        datas : donnée avec Num_Acc, latitude, longitude
         zoom_choice : zoom map
 
     Returns
@@ -326,23 +340,195 @@ def make_plot_map(datas, zoom_choice):
     )
 
 
+def make_adaptatif_histo(
+    id_histo_graph,
+    histo_value_param_dropdown,
+    histo_color_param_dropdown,
+    histo_histnorm_param_radio_btn,
+    histo_barmode_param_radio_btn,
+    default_figure=None,
+):
+    """
+    returne dash div contenent tous le necessaire pour un histogramme avec des dropdown et radio button à l'id et options personnalisé
+
+    Parameters
+    ----------
+        id_histo_graph : id de l'histogramme
+        histo_value_param_dropdown : {'id': 'nom', 'options':[{'label':label, 'value':'value},], 'value':value}
+        histo_color_param_dropdown : {'id': 'nom', 'options':[{'label':label, 'value':'value},], 'value':value}
+        histo_histnorm_param_radio_btn : {'id': 'nom', 'options':[{'label':label, 'value':'value},], 'value':value}
+        histo_barmode_param_radio_btn : {'id': 'nom', 'options':[{'label':label, 'value':'value},], 'value':value}
+        default_figure = None permet d'initialisé l'histogramme avec une figure plotly
+
+    Returns
+    ----------
+        dash div
+    """
+    if not default_figure:
+        default_figure = {}
+    return html.Div(
+        [
+            dcc.Graph(id=id_histo_graph, figure=default_figure),
+            html.Div(
+                [
+                    # dropdown choix des valeurs
+                    html.Div(
+                        [
+                            html.Label(
+                                "Valeurs à observer",
+                                htmlFor=histo_value_param_dropdown["id"],
+                                style={"fontWeight": "bold"},
+                            ),
+                            dcc.Dropdown(
+                                id=histo_value_param_dropdown["id"],
+                                options=histo_value_param_dropdown["options"],
+                                value=histo_value_param_dropdown["value"],
+                                style={"width": 250, "textAlign": "left"},
+                            ),
+                        ],
+                        style={"textAlign": "center"},
+                    ),
+                    # dropdown choix comparaison
+                    html.Div(
+                        [
+                            html.Label(
+                                "Comparateur", htmlFor=histo_color_param_dropdown["id"], style={"fontWeight": "bold"}
+                            ),
+                            dcc.Dropdown(
+                                id=histo_color_param_dropdown["id"],
+                                options=histo_color_param_dropdown["options"],
+                                value=histo_color_param_dropdown["value"],
+                                style={"width": 250, "textAlign": "left"},
+                            ),
+                        ],
+                        style={"display": "block", "marginLeft": 10, "textAlign": "center"},
+                    ),
+                    # radio button paramètre d'affichage
+                    html.Div(
+                        [
+                            html.Label(
+                                "Paramètre d'affichage",
+                                htmlFor=histo_histnorm_param_radio_btn["id"],
+                                style={"fontWeight": "bold"},
+                            ),
+                            dcc.RadioItems(
+                                id=histo_histnorm_param_radio_btn["id"],
+                                options=histo_histnorm_param_radio_btn["options"],
+                                value=histo_histnorm_param_radio_btn["value"],
+                                style={"textAlign": "left", "margin": "auto"},
+                            ),
+                        ],
+                        style={"display": "flex", "flexDirection": "column", "marginLeft": 10, "textAlign": "center"},
+                    ),
+                    # radio button paramètre d'affiche multiple
+                    html.Div(
+                        [
+                            html.Label(
+                                "Paramètre comparateur",
+                                htmlFor=histo_barmode_param_radio_btn["id"],
+                                style={"fontWeight": "bold"},
+                            ),
+                            dcc.RadioItems(
+                                id=histo_barmode_param_radio_btn["id"],
+                                options=histo_barmode_param_radio_btn["options"],
+                                value=histo_barmode_param_radio_btn["value"],
+                                style={"textAlign": "left", "margin": "auto"},
+                            ),
+                        ],
+                        style={"display": "flex", "flexDirection": "column", "marginLeft": 10, "textAlign": "center"},
+                    ),
+                ],
+                style={"display": "flex", "justifyContent": "center"},
+            ),
+        ]
+    )
+
+
+def update_histo(values_param, color_param, histnorm_param, barmode_param, datas):
+    """
+    returne l'histogramme en fonction des paramètre fournie
+
+    Parameters
+    ----------
+        values_param : valeur à observer (nom collonne)
+        color_param : valeur de comparaison (nom collonne)
+        histnorm_param : paramètre histonorm
+        barmode_param : paramètre barmode
+        datas : dataframe
+
+    Returns
+    ----------
+        fig histo
+    """
+    # si aucune valuers séléctionné
+    if not values_param:
+        return None
+
+    bargap_param = 0
+    # si valeurs et comparaison sont pareil
+    if values_param == color_param:
+        return None
+
+    # si pas de choix (none)
+    if not histnorm_param:
+        histnorm_param = ""
+
+    # valeurs choisie par l'utilisateur
+    loc = [values_param]
+    if color_param:
+        loc += [color_param]
+
+    # récupère que les valeurs choisie dans all_merged
+    dataframe = datas.loc[:, loc]
+    # si pas de colorParem
+    if not color_param:
+        fig = px.histogram(dataframe, x=values_param, histnorm=histnorm_param)
+    else:
+        fig = px.histogram(dataframe, x=values_param, color=color_param, histnorm=histnorm_param, barmode=barmode_param)
+
+    # affichage des pourcentage
+    if histnorm_param == "percent":
+        fig.update_yaxes(ticksuffix="%")
+
+    # si groupe espace les valeurs
+    if barmode_param == "group" and color_param:
+        bargap_param = 0.2
+
+    fig.update_layout(
+        xaxis_title=values_param,
+        yaxis_title="Accidents",
+        legend_title=color_param,
+        bargap=bargap_param,
+    )
+
+    return fig
+
+
 class ClassMap:
     """
-    A class to represent a person.
+    class qui représente toutes les info des accident et de leurs cartes liés\n
+    class actuellement peut utile mais vise à être dévelloper et permettre une plus grand modularisation du code
 
     Attributes
     ----------
-    name : str
-        first name of the person
-    surname : str
-        family name of the person
-    age : int
-        age of the person
+    geojson = {"departments","communes"}
+        données brut des geojson\n
+    csv : {"characteristics", "places", "users", "vehicle"}
+        données brut des accident\n
+    all_merged : dataframe
+        toutes les données accident merge\n
+    accident_dep : nombre d'accident par département\n
+    accident_com : nombre d'accident par commune\n
+    departments_info : info lié à chaque département (tiré de departement geojson)\n
+    communes_info : info lié à chaque commune (tiré de commune geojson)\n
+    default_map = departments_map : map département part défault (carte color nombre d'accident par département)\n
+    communes_map :  map commune défault (carte color nombre d'accident par commune)\n
+    departments_map_info : information lié à la carte\n
+    communes_map_info : information lié à la carte\n
 
     Methods
     -------
-    info(additional=""):
-        Prints the person's name and age.
+        actuellement  que des méthodes privées
     """
 
     __raw_departements = gpd.read_file("./geojson/departements.geojson")
@@ -450,7 +636,7 @@ class ClassMap:
         }
 
     def __rounded_hour_caracteristique(self):
-        """crée une colonne rounded avec les valeurs arrondies à l'heure près pour chaque accident. ex: 02:54 -> 2"""
+        """crée une colonne rounded avec les valuers arondis à l'heure près pour chaque accident. ex: 02:54 -> 2"""
         temp = self.csv["characteristics"]
         # créer la colonne rounded
         temp["rounded"] = ""
@@ -465,7 +651,7 @@ class ClassMap:
         return temp
 
     def __replace_labels_merged(self):
-        """remplace toutes les valeurs de chaque ligne pour chaque colonne en fonction de dict_labels"""
+        """remplace toutes les valeurs de chaque ligne pour chaque colonnes en fonction de dict_labels"""
         for label in dict_labels:
             item, data = [], []
             for key, value in dict_labels[label].items():
