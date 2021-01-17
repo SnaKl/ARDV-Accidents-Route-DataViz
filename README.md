@@ -70,6 +70,10 @@ Le dashboard se compose de trois grandes parties :
    <br>Un filtre du facteur sélectionné se trouve **à droite** de l'histogramme, il permet de retirer les éléments souhaités.
    <br>
    
+   ![alt text](https://github.com/SnaKl/ARDV-Accidents-Route-DataViz-/blob/main/Images/histo1_a.png?raw=true)
+   ![alt text](https://github.com/SnaKl/ARDV-Accidents-Route-DataViz-/blob/main/Images/histo1_b.png?raw=true)
+   ![alt text](https://github.com/SnaKl/ARDV-Accidents-Route-DataViz-/blob/main/Images/histo1_c.png?raw=true)
+   
 ##### Les facteurs de comparaison proposés
    * Jour
    * Mois  
@@ -108,6 +112,9 @@ Le dashboard se compose de trois grandes parties :
    **Au survol** des départements, on nous indique le nombre d'accidents comptabilisé dans cette zone.<br>
    <br>
    
+   ![alt text](https://github.com/SnaKl/ARDV-Accidents-Route-DataViz-/blob/main/Images/map1.png?raw=true)
+   ![alt text](https://github.com/SnaKl/ARDV-Accidents-Route-DataViz-/blob/main/Images/map2.png?raw=true)
+   
 ##### Diagrammes par régions
 Sous la carte, on retrouve trois diagrammes pouvant être mis à jour en fonction de la zone cliquée sur la carte :
    * Un diagramme circulaire représentant le nombre d'accident par type de choc (indemne, blessé léger, tué etc...)
@@ -118,6 +125,8 @@ Sous la carte, on retrouve trois diagrammes pouvant être mis à jour en fonctio
  
    > Projet de comparaison entre deux régions / communes / départements en cours
    <br>
+   
+   ![alt text](https://github.com/SnaKl/ARDV-Accidents-Route-DataViz-/blob/main/Images/hist2_a.png?raw=true)
    
 ##### Histogramme secondaire  
   Une troisième partie constituée d'un autre histogramme similaire au premier est présente sous les diagrammes par régions. Il a la même fonctionnalité mais est spécifique à la zone choisie sur la carte.
