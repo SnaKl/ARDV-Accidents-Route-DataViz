@@ -66,15 +66,27 @@ Le dashboard se compose de trois grandes parties :
    C'est une carte intéractive centrée sur la France mais avec laquelle on peut accéder aux autres pays du monde afin de respecter les données d'accidents des DOM TOM.
    <br>
    <br>Un filtre situé **au dessus** de la map permet de choisir si on souhaite afficher la carte selon les départements ou les communes. On peut aussi choisir d'afficher les résultats en focus ou par zoom. Ce dernier paramètre permet d'afficher la zone sélectionnée plus précisémment et ainsi afficher jusqu'aux petits points représentant les accidents. 
-   > Un filtre par région est en cours de développement.
+   > L'ajout d'un filtre par région est en cours de développement.
+   > Un historique de recherche permettant de revenir rapidement sur la dernière zone ciblée sans repasser par les filtres est en projet.
+   
    Une graduation présente sur **la droite de la carte** indique le nombre d'accident par département en fonction de la couleur.<br>
    <br>
+   > Une autre graduation colorant les zones en fonction du taux d'accident mortel est en cours de projet.
+   
    **Au survol** des départements, on nous indique le nombre d'accidents comptabilisé dans cette zone.<br>
    <br>
-   Sous la carte, on retrouve trois diagrammes dépendants de la sélection sur cette dernière :
+   
+##### Diagrammes par régions
+Sous la carte, on retrouve trois diagrammes pouvant être mis à jour en fonction de la zone cliquée sur la carte :
    * Un diagramme circulaire représentant le nombre d'accident par type de choc (indemne, blessé léger, tué etc...)
    * Une courbe du nombre d'accident par mois dans la zone
    * Un diagramme circulaire du pourcentage du nombre d'accident par point de choc (arrière, avant, côtés etc...)
+   <br>
+   Ces diagrammes possèdent eux aussi leurs propres filtres, permettant ainsi de sélectionner une zone et un mode d'affichage sans forcément passer par la carte.
+   > Projet de comparaison entre deux régions / communes / départements en cours
+   <br>
+   <br>
+   > Une troisième partie constituée d'un autre histogramme similaire à la première partie est en projet. Il aurait la même fonctionnalité mais spécifique à la zone choisie sur la carte.
 
 #### Les facteurs proposés
 
