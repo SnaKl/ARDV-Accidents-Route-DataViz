@@ -30,21 +30,22 @@ Nous permettons à l'utilisateur de comparer des données très larges, réponda
 #### Pré-requis
 
 Avoir installé le module python sur Visual Studio Code<br>
-Avoir installé le gestionnaire de paquet pour python **Conda** (on peut aussi utiliser pip)
+Avoir installé l'utilitaire python Anaconda3
+Avoir installé un gestionnaire de paquet pour python (ici nous utilisons **Conda**)
 
 #### Installer projet via git
 Dans Visual Studio Code, clôner le répertoire git : https://github.com/SnaKl/ProjectPython, branche *master*
 
 #### Installer geopandas
-`pip install geopandas`
+`conda install geopandas`
 
 #### Installer plotly
 
-`pip install plotly`<br>
-Si une version antérieure est déjà installée : `pip install plotly --upgrade`
+`conda install plotly`<br>
+Si une version antérieure est déjà installée : `conda install plotly --upgrade`
 
 #### Installer dash
-`pip install dash`
+`conda install dash`
 
 #### Lancement du dashboard
 Il ne reste plus qu'à lancer le programme (run)<br>
