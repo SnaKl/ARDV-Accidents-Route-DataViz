@@ -8,7 +8,9 @@ Présence d'un histogramme et d'une représentation géolocalisée à partir d'u
 <br>
 **Quelles caractéristiques relèvent les facteurs d'accidents de la route en France ?**
 <br>
-Dans ce cadre, nous exploiterons les données et donnerons la possibilité à l'utilisateur de comparer différentes informations entre elles pour mettre en avant les réponses à notre problématique.
+Dans ce cadre, nous avons exploité les données et donnons à l'utilisateur la possibilité de comparer différentes informations entre elles pour mettre en avant les réponses à notre problématique.
+
+> Si le texte est affiché de cette façon c'est qu'une amélioration est envisagée, ou est en cours de développement.
 
 ## Rapport d'analyse 
 
@@ -49,18 +51,33 @@ Il ne reste plus qu'à lancer le programme (run)<br>
 <br>
 Il est à noter que le lancement du dashboard est **très lent**, dû à toutes les données chargées, une bonne dizaine de minutes est à prévoir (temps variable en fonction de l'appareil sur lequel est lancé le programme). Le fait de charger tous le dashboard dès son lancement permet ainsi à l'utilisateur d'effectuer des traitements et comparaisons de données dans un temps quasi instantanné par la suite.
 
-### L'utilisation du dashboard
-
-#### Son organisation
+### Les fonctionnalités du Dashboard
 
 Le dashboard se compose de trois grandes parties :
-- **Histogramme général des accidents de la route**
+
+#### Histogramme général des accidents de la route
+
+   Cet histogramme permet de manipuler toutes les données des CSV et de les comparer en fonction de facteurs sélectionnés. Il est indépendant des autres parties du dashboard et représente toutes les données confondues (tous les lieux de France).<br>
+   <br>Des options situées **sous l'histogramme** permettent de modifier les paramètres d'affichage des données (empilés, groupés, recouverts) et la façon dont elles sont comparées (en nombre, probabilité ou pourcentage). <br>
+   <br>Un filtre du facteur sélectionné se trouve **à droite** de l'histogramme, il permet de retirer les éléments souhaités.
    <br>
-   Cet histogramme permet de 
+   
+#### Carte des accidents et ses diagrammes
+   C'est une carte intéractive centrée sur la France mais avec laquelle on peut accéder aux autres pays du monde afin de respecter les données d'accidents des DOM TOM.
    <br>
-- **Carte des accidents**
-- grthr
-> par la suite 
+   <br>Un filtre situé **au dessus** de la map permet de choisir si on souhaite afficher la carte selon les départements ou les communes. On peut aussi choisir d'afficher les résultats en focus ou par zoom. Ce dernier paramètre permet d'afficher la zone sélectionnée plus précisémment et ainsi afficher jusqu'aux petits points représentant les accidents. 
+   > Un filtre par région est en cours de développement.
+   Une graduation présente sur **la droite de la carte** indique le nombre d'accident par département en fonction de la couleur.<br>
+   <br>
+   **Au survol** des départements, on nous indique le nombre d'accidents comptabilisé dans cette zone.<br>
+   <br>
+   Sous la carte, on retrouve trois diagrammes dépendants de la sélection sur cette dernière :
+   * Un diagramme circulaire représentant le nombre d'accident par type de choc (indemne, blessé léger, tué etc...)
+   * Une courbe du nombre d'accident par mois dans la zone
+   * Un diagramme circulaire du pourcentage du nombre d'accident par point de choc (arrière, avant, côtés etc...)
+
+#### Les facteurs proposés
+
 
 #### Ses fonctionnalités
 
