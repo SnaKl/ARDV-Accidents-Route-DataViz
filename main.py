@@ -12,6 +12,7 @@
     Main application pour la datavision des accidents de la route
     de France et DOM
 """
+import re
 import math
 import dash
 import dash_core_components as dcc
@@ -521,7 +522,7 @@ def visual_multi_function(
         if wtd_down_value[0] == "Focus":
             try:
                 querry = info_dropdown_value.split()[0]
-                if not querry.endswith("A") and not querry.endswith("B"):
+                if not re.search("[a-zA-Z]", querry):
                     querry = str(int(querry))
 
                 if len(querry) < 4:
@@ -682,7 +683,7 @@ def visual_multi_function(
 
         try:
             querry = info_dropdown_value.split()[0]
-            if not querry.endswith("A") and not querry.endswith("B"):
+            if not re.search("[a-zA-Z]", querry):
                 querry = str(int(querry))
 
             if len(querry) < 4:
