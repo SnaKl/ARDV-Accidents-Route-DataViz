@@ -47,6 +47,13 @@ Si une version antérieure est déjà installée : `conda install plotly --upgra
 #### Installer dash
 `conda install dash`
 
+#### Installer shapely
+
+`conda install shapely`
+
+#### Installer functools
+`conda install functools`
+
 #### Lancement du dashboard
 Il ne reste plus qu'à lancer le programme (run)<br>
 <br>
