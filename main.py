@@ -26,7 +26,7 @@ import process_module
 class_map = process_module.ClassMap()
 
 
-# mulit drop down choice
+# multi drop down choice
 multi_option_dict = {"Color": ["Department", "Commune"], "Point": 0}
 
 app = dash.Dash(__name__, external_stylesheets=["https://codepen.io/chriddyp/pen/bWLwgP.css"])
@@ -215,7 +215,7 @@ def update_histo_main_figure(values_param, color_param, histnorm_param, barmode_
     Update l'histogramme principal en fonction des changements de valeurs radio button et dropdown
 
     Parameters:
-        values_param : valeurs principal à observer
+        values_param : valeurs principales à observer
         color_param : valeurs de comparaison
         histnorm_param : mode d'affichage (nombre/probabilité/pourcentage)
         barmode_param : mode d'affichage comparateur (stack/group/overlay)
@@ -240,25 +240,25 @@ def update_histo_main_figure(values_param, color_param, histnorm_param, barmode_
 )
 def update_filter_multi_options(values):
     """
-    génère automatiquement les options disponible du dropdown en fonction de celle déja séléctionné
+    génère automatiquement les options disponibles du dropdown en fonction de celles déja séléctionnées
 
     Parameters:
-        values : valeurs séléctionné
+        values : valeurs séléctionnées
 
     Returns:
-        [options disponible]
+        [options disponibles]
     """
-    # si aucune valuer ne fait rien
+    # si aucune valeur ne fait rien
     if not values:
         return [{"label": name, "value": name} for name in multi_option_dict]
-    # si permière valeur ne correspond pas à Color ou point efface les choix
-    # et retourne les choix classique
+    # si première valeur ne correspond pas à Color ou point efface les choix
+    # et retourne les choix classiques
     if values[0] not in ["Color", "Point"]:
         return [{"label": name, "value": name} for name in multi_option_dict]
-    # si valeurs choisie point ou 2 change les options pour seulement elles même
+    # si valeurs choisies point ou 2 change les options pour seulement elles-même
     if len(values) >= 2 or values[0] == "Point":
         return [{"label": value, "value": value} for value in values]
-    # crée les otpions liés au premier choix
+    # crée les options liées au premier choix
     opts = multi_option_dict[values[0]]
     options = [{"label": value, "value": value} for value in opts]
     options.append({"label": values[0], "value": values[0]})
@@ -299,10 +299,10 @@ def visual_multi_function(
     info_dropdown_value,
 ):
     """
-    Update accident_map et figure liée en fonction des valeurs choisie dans wtd_down à l'appuie de go_request
-    Change automatiquement les options wtd_down en fonction des valeurs séléctionné
-    Change automatiquement la valeur séléctionné de info_dropdown au click sur la map
-    Adapte les options de info_dropdown en fonction des éléments visible sur la map
+    Update accident_map et figures liées en fonction des valeurs choisies dans wtd_down à l'appuie de go_request
+    Change automatiquement les options wtd_down en fonction des valeurs sélectionnées
+    Change automatiquement la valeur sélectionnée de info_dropdown au click sur la map
+    Adapte les options de info_dropdown en fonction des éléments visibles sur la map
 
     Parameters:
         visual_button : nombre click
@@ -310,11 +310,11 @@ def visual_multi_function(
         accident_map : clickData sur la map
         wtd_down_value : valeurs dropdown
         go_request : nombre click
-        histo_focus_value : valeurs choisie d'afficher dans l'histogramme
+        histo_focus_value : valeurs choisies d'afficher dans l'histogramme
         histo_focus_color : valeurs de comparaison dans l'histogramme
         histo_focus_histnorm_param : paramètre histnorm
         histo_focus_barmode_param : paramètre barmode
-        info_dropdown_value : valuer dropdown
+        info_dropdown_value : valeur dropdown
 
     Returns:
         figure accident_map
@@ -326,17 +326,17 @@ def visual_multi_function(
         options wtd_down : [{"label": label, "value": value},]
         figure histogramme
     """
-    # récupère le context
+    # récupère le contexte
     ctx = dash.callback_context
-    # si aucun context ne fait rien
+    # si aucun contexte ne fait rien
     if not ctx.triggered:
         raise PreventUpdate
-    # récupère l'id de l'élement cliqué
+    # récupère l'id de l'élément cliqué
     item_click_id = ctx.triggered[0]["prop_id"].split(".")[0]
 
     # si clique sur wtd_down dropdown
     if item_click_id == "wtd_down":
-        # si aucune valeurs renvoie les valeurs par defaut
+        # si aucune valeur renvoie les valeurs par defaut
         if not wtd_down_value:
             return (
                 no_update,
@@ -348,7 +348,7 @@ def visual_multi_function(
                 [{"label": "Zoom", "value": "Zoom"}, {"label": "Focus", "value": "Focus"}],
                 no_update,
             )
-        # si la première valuer n'est pas zoom ou focus, return valeurs par défault
+        # si la première valeur n'est pas zoom ou focus, return valeur par défaut
         if wtd_down_value[0] not in ["Zoom", "Focus"]:
             return (
                 no_update,
@@ -360,7 +360,7 @@ def visual_multi_function(
                 [{"label": "Zoom", "value": "Zoom"}, {"label": "Focus", "value": "Focus"}],
                 no_update,
             )
-        # si premiere valeurs focus supprime les autre options
+        # si premiere valeur focus supprime les autres options
         if wtd_down_value[0] == "Focus":
             return (
                 no_update,
@@ -372,7 +372,7 @@ def visual_multi_function(
                 [{"label": "Focus", "value": "Focus"}],
                 no_update,
             )
-        # si 2 valeurs ne peut plus en choisir d'autre
+        # si 2 valeurs, ne peut plus en choisir d'autres
         if len(wtd_down_value) >= 2:
             return (
                 no_update,
@@ -384,7 +384,7 @@ def visual_multi_function(
                 [{"label": value, "value": value} for value in wtd_down_value],
                 no_update,
             )
-        # return zoom et autre possibilité
+        # return zoom et autres possibilités
         return (
             no_update,
             no_update,
@@ -400,9 +400,9 @@ def visual_multi_function(
             no_update,
         )
 
-    # si l'evenèment correspond au click sur le visual_button
+    # si l'évènement correspond au click sur le visual_button
     if item_click_id == "visual_button":
-        # si il n'y a pas de value ne fait rien
+        # si il n'y a pas de value, ne fait rien
         if not multi_filter_choice:
             raise PreventUpdate
         # si choix point retourne map point
@@ -434,7 +434,7 @@ def visual_multi_function(
         # si color est multi_filter_choice inférieur à 2 ne fait rien
         if len(multi_filter_choice) < 2:
             raise PreventUpdate
-        # si choix Department affiche color department
+        # si choix Département affiche color department
         if multi_filter_choice[1] == "Department":
             options_info_dropdown = [
                 {
@@ -479,7 +479,7 @@ def visual_multi_function(
 
     # si clique sur accident_map
     if item_click_id == "accident_map":
-        # récupère type de n'éléement cliqué
+        # récupère type de l'élément cliqué
         click_type = accident_map["points"][0]["customdata"][0]
         # si clique sur un point ne fait rien
         if click_type.endswith("_point"):
@@ -493,7 +493,7 @@ def visual_multi_function(
                 no_update,
                 no_update,
             )
-        # séléctionne automatiquement l'élement cliquer
+        # sélectionne automatiquement l'élément cliqué
         return (
             no_update,
             no_update,
@@ -517,7 +517,7 @@ def visual_multi_function(
             location = info_dropdown_value
             name = ""
 
-        # Si choisie focus adapte les graphiques
+        # Si choisi focus adapte les graphiques
         if wtd_down_value[0] == "Focus":
             try:
                 querry = info_dropdown_value.split()[0]
@@ -610,7 +610,7 @@ def visual_multi_function(
 
         # sinon color
         else:
-            # si len < 4 c'est un departement donc zoom sur commune
+            # si len < 4 : c'est un département donc zoom sur commune
             if len(str(location)) < 4:
                 accident_com_location = class_map.accident_com.loc[
                     class_map.accident_com.insee_com.astype(str).str.startswith(str(location))

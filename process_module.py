@@ -4,12 +4,12 @@
 # line too long : C0301
 # pylint problemes:
 # fonction avec trop d'arguments (make_map, make_plot_map)
-# résolutions possible:
-# revoir les fonctions tranformer les paramètres en dict
+# résolutions possibles:
+# revoir les fonctions, transformer les paramètres en dict
 # class avec aucune méthode publique
-# résolutions possible:
+# résolutions possibles:
 # - transformer la classe en dataclass
-# - supprimer toutalement la classe et revoir la structure
+# - supprimer totalement la classe et revoir la structure
 """
     Module pour aider à la création du dashboard
     permet une exécution rapide dans le dashboard
@@ -173,13 +173,13 @@ observable_values_labels = {
 
 def get_all_coords(geo_data):
     """
-    Retourne toute les coordonées possible des polygones
+    Retourne toutes les coordonées possibles des polygones
 
     Parameters:
         geo_data: polygones
 
     Returns:
-        [cordonnées de tous les polygones]
+        [coordonnées de tous les polygones]
     """
     coords = []
     for geometry in geo_data["geometry"]:
@@ -219,7 +219,7 @@ def get_area(geo_data):
 
 def get_zoom(geo_data):
     """
-    retourne le zoom de la map grâce à l'aire total de la géométrie à visualiser
+    retourne le zoom de la map grâce à l'aire totale de la géométrie à visualiser
 
     Parameters:
         geo_data: geo_data
@@ -279,18 +279,18 @@ def make_map(
     label,
 ):
     """
-    returne la map color en fonction des paramètres (choropleth_mapbox)
+    retourne la map color en fonction des paramètres (choropleth_mapbox)
 
     Parameters:
-        datas: donnée à observer
+        datas: données à observer
         geo_data: geo_data
         feature_id_key: keys match entre geo_datas et datas (properties.'location')
         location: keys datas
         hover_name: nom au survol
-        hover_data: [donnée à afficher au survol]
-        data_color: donnée utilisé pour la couleur
+        hover_data: [données à afficher au survol]
+        data_color: données utilisées pour la couleur
         zoom_choice: zoom map
-        coords: coordonnée de la map
+        coords: coordonnées de la map
         opacity_choice: opacité sur la map
         label: label à afficher = {"data_id": "label"},
 
@@ -318,7 +318,7 @@ def make_map(
 
 def make_plot_map(datas, zoom_choice):
     """
-    returne la map scatter des accident de la route
+    retourne la map scatter des accidents de la route
 
     Parameters
     ----------
@@ -349,7 +349,7 @@ def make_adaptatif_histo(
     default_figure=None,
 ):
     """
-    returne dash div contenent tous le necessaire pour un histogramme avec des dropdown et radio button à l'id et options personnalisé
+    retourne dash div contenent tout le nécessaire pour un histogramme avec des dropdown et radio button à l'id et options personnalisées
 
     Parameters
     ----------
@@ -358,7 +358,7 @@ def make_adaptatif_histo(
         histo_color_param_dropdown : {'id': 'nom', 'options':[{'label':label, 'value':'value},], 'value':value}
         histo_histnorm_param_radio_btn : {'id': 'nom', 'options':[{'label':label, 'value':'value},], 'value':value}
         histo_barmode_param_radio_btn : {'id': 'nom', 'options':[{'label':label, 'value':'value},], 'value':value}
-        default_figure = None permet d'initialisé l'histogramme avec une figure plotly
+        default_figure = None permet d'initialiser l'histogramme avec une figure plotly
 
     Returns
     ----------
@@ -420,7 +420,7 @@ def make_adaptatif_histo(
                         ],
                         style={"display": "flex", "flexDirection": "column", "marginLeft": 10, "textAlign": "center"},
                     ),
-                    # radio button paramètre d'affiche multiple
+                    # radio button paramètre d'affichage multiple
                     html.Div(
                         [
                             html.Label(
@@ -446,7 +446,7 @@ def make_adaptatif_histo(
 
 def update_histo(values_param, color_param, histnorm_param, barmode_param, datas):
     """
-    returne l'histogramme en fonction des paramètre fournie
+    retourne l'histogramme en fonction des paramètres fournie
 
     Parameters
     ----------
@@ -460,12 +460,12 @@ def update_histo(values_param, color_param, histnorm_param, barmode_param, datas
     ----------
         fig histo
     """
-    # si aucune valuers séléctionné
+    # si aucune valeur séléctionnée
     if not values_param:
         return None
 
     bargap_param = 0
-    # si valeurs et comparaison sont pareil
+    # si valeur et comparaison sont pareilles
     if values_param == color_param:
         return None
 
@@ -473,12 +473,12 @@ def update_histo(values_param, color_param, histnorm_param, barmode_param, datas
     if not histnorm_param:
         histnorm_param = ""
 
-    # valeurs choisie par l'utilisateur
+    # valeurs choisies par l'utilisateur
     loc = [values_param]
     if color_param:
         loc += [color_param]
 
-    # récupère que les valeurs choisie dans all_merged
+    # récupère seulement les valeurs choisies dans all_merged
     dataframe = datas.loc[:, loc]
     # si pas de colorParem
     if not color_param:
@@ -486,7 +486,7 @@ def update_histo(values_param, color_param, histnorm_param, barmode_param, datas
     else:
         fig = px.histogram(dataframe, x=values_param, color=color_param, histnorm=histnorm_param, barmode=barmode_param)
 
-    # affichage des pourcentage
+    # affichage des pourcentages
     if histnorm_param == "percent":
         fig.update_yaxes(ticksuffix="%")
 
@@ -506,25 +506,25 @@ def update_histo(values_param, color_param, histnorm_param, barmode_param, datas
 
 class ClassMap:
     """
-    class qui représente toutes les info des accident et de leurs cartes liés\n
-    class actuellement peut utile mais vise à être dévelloper et permettre une plus grand modularisation du code
+    class qui représente toutes les info des accident et de leurs cartes liées\n
+    class actuellement peu utile mais vise à être développée pour permettre une plus grande modularisation du code
 
     Attributes
     ----------
     geojson = {"departments","communes"}
         données brut des geojson\n
     csv : {"characteristics", "places", "users", "vehicle"}
-        données brut des accident\n
+        données brut des accidents\n
     all_merged : dataframe
         toutes les données accident merge\n
     accident_dep : nombre d'accident par département\n
     accident_com : nombre d'accident par commune\n
-    departments_info : info lié à chaque département (tiré de departement geojson)\n
+    departments_info : info liée à chaque département (tiré de departement geojson)\n
     communes_info : info lié à chaque commune (tiré de commune geojson)\n
-    default_map = departments_map : map département part défault (carte color nombre d'accident par département)\n
-    communes_map :  map commune défault (carte color nombre d'accident par commune)\n
-    departments_map_info : information lié à la carte\n
-    communes_map_info : information lié à la carte\n
+    default_map = departments_map : map département part défaut (carte color nombre d'accident par département)\n
+    communes_map :  map commune défaut (carte color nombre d'accident par commune)\n
+    departments_map_info : informations liées à la carte\n
+    communes_map_info : informations liées à la carte\n
 
     Methods
     -------
@@ -537,7 +537,7 @@ class ClassMap:
         "departments": __raw_departements,
         "communes": __raw_communes,
     }
-    # donné brut
+    # données brut
     __raw_caracteristiques = pd.read_csv("./csv/accident/caracteristiques-2019.csv", sep=";", decimal=",")
     __raw_lieux = pd.read_csv("./csv/accident/lieux-2019.csv", sep=";", decimal=",")
     __raw_usagers = pd.read_csv("./csv/accident/usagers-2019.csv", sep=";", decimal=",")
@@ -550,7 +550,7 @@ class ClassMap:
     }
 
     def __init__(self):
-        # arondis à l'heure près. ex: 02:54 -> 2
+        # arondi à l'heure près. ex: 02:54 -> 2
         self.csv["characteristics"] = self.__rounded_hour_caracteristique()
         # merged toutes les informations brut grâce au Num_Acc
         self.all_merged = reduce(
@@ -562,9 +562,9 @@ class ClassMap:
                 self.__raw_vehicules,
             ],
         )
-        # remplace toute les valuers par collone dans le dict_labels
+        # remplace toute les valeurs par colonne dans le dict_labels
         self.__replace_labels_merged()
-        # token necessaire pour la map
+        # token nécessaire pour la map
         px.set_mapbox_access_token(
             "pk.eyJ1Ijoic25ha2wiLCJhIjoiY2tpeXhqYmQzMWl0NTJ6bno4dzV4amJnayJ9.-qT1chzjLoOM6N1RDv_Zag"
         )
@@ -592,7 +592,7 @@ class ClassMap:
             1,
             {"insee_dep": "Département", "nb_accident": "Nombre d'accidents"},
         )
-        # information sur la map départemnt
+        # information sur la map département
         self.departments_map_info = {
             "hoverText": self.departments_map["data"][0]["hovertext"],
             "locations": self.departments_map["data"][0]["locations"],
@@ -604,7 +604,7 @@ class ClassMap:
                 ]
             ),
         }
-        # crée la map la map commune (toute)
+        # crée la map commune (toute)
         self.communes_map = make_map(
             self.accident_com,
             self.geojson["communes"],
@@ -638,7 +638,7 @@ class ClassMap:
     def __rounded_hour_caracteristique(self):
         """crée une colonne rounded avec les valuers arondis à l'heure près pour chaque accident. ex: 02:54 -> 2"""
         temp = self.csv["characteristics"]
-        # créer la colonne rounded
+        # crée la colonne rounded
         temp["rounded"] = ""
         # pour chaque heure
         for roudend_hour in range(24):
@@ -661,7 +661,7 @@ class ClassMap:
 
     def __get_accident_dep(self):
         """
-        retourne le nombre d'accident par dépatement
+        retourne le nombre d'accident par département
 
         Returns: dataframe
         """
