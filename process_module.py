@@ -159,13 +159,13 @@ observable_values_labels = {
 
 def get_all_coords(geo_data):
     """
-    Retourne toute les coordonées possible des polygones
+    Retourne toutes les coordonnées possibles des polygones
 
     Parameters:
         geo_data: polygones
 
     Returns:
-        [cordonnées de tous les polygones]
+        [coordonnées de tous les polygones]
     """
     coords = []
     for geometry in geo_data["geometry"]:
@@ -268,13 +268,13 @@ def make_map(
     returne la map color en fonction des paramètres (choropleth_mapbox)
 
     Parameters:
-        datas: donnée à observer
+        datas: données à observer
         geo_data: geo_data
         feature_id_key: keys match entre geo_datas et datas (properties.'location')
         location: keys datas
         hover_name: nom au survol
         hover_data: [donnée à afficher au survol]
-        data_color: donnée utilisé pour la couleur
+        data_color: donnée utilisée pour la couleur
         zoom_choice: zoom map
         coords: coordonnée de la map
         opacity_choice: opacité sur la map
@@ -304,11 +304,11 @@ def make_map(
 
 def make_plot_map(datas, zoom_choice):
     """
-    returne la map scatter des accident de la route
+    retourne la map scatter des accidents de la route
 
     Parameters
     ----------
-        datas : donnée avec Num_Acc, latitude, longitude
+        datas : données avec Num_Acc, latitude, longitude
         zoom_choice : zoom map
 
     Returns
@@ -450,7 +450,7 @@ class ClassMap:
         }
 
     def __rounded_hour_caracteristique(self):
-        """crée une colonne rounded avec les valuers arondis à l'heure près pour chaque accident. ex: 02:54 -> 2"""
+        """crée une colonne rounded avec les valeurs arrondies à l'heure près pour chaque accident. ex: 02:54 -> 2"""
         temp = self.csv["characteristics"]
         # créer la colonne rounded
         temp["rounded"] = ""
@@ -465,7 +465,7 @@ class ClassMap:
         return temp
 
     def __replace_labels_merged(self):
-        """remplace toutes les valeurs de chaque ligne pour chaque colonnes en fonction de dict_labels"""
+        """remplace toutes les valeurs de chaque ligne pour chaque colonne en fonction de dict_labels"""
         for label in dict_labels:
             item, data = [], []
             for key, value in dict_labels[label].items():
