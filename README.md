@@ -4,9 +4,9 @@
 
 Dans le cadre du cours de Python à ESIEE Paris, troisième année Informatique et Applications, réalisation d'un dashbord codé en python sous Visual Studio Code.<br>
 <br>
-Présence d'un histogramme et d'une représentation géolocalisée à partir d'un jeu de données téléchargé sur [datagouv.fr](https://www.data.gouv.fr/fr/datasets/bases-de-donnees-annuelles-des-accidents-corporels-de-la-circulation-routiere-annees-de-2005-a-2019/#_). Ces fichiers CSV représentent les bases de données annuelles des accidents corporels de la circulation routière (années de 2005 à 2019).<br>
+Présence d'un histogramme et d'une représentation géolocalisée à partir d'un jeu de données téléchargé sur [datagouv.fr](https://www.data.gouv.fr/fr/datasets/bases-de-donnees-annuelles-des-accidents-corporels-de-la-circulation-routiere-annees-de-2005-a-2019/#_). Ces fichiers CSV représentent les bases de données **annuelle 2019** des accidents corporels de la circulation routière.<br>
 <br>
-**Quelles caractéristiques relèvent les facteurs d'accidents de la route en France ?**
+***Quelles caractéristiques relèvent les facteurs d'accidents de la route en France ?***
 <br>
 Dans ce cadre, nous avons exploité les données et donnons à l'utilisateur la possibilité de comparer différentes informations entre elles pour mettre en avant les réponses à notre problématique.
 
@@ -16,13 +16,13 @@ Dans ce cadre, nous avons exploité les données et donnons à l'utilisateur la 
 
 Grâce à la base de données très complète, nous avons pu proposer des facteurs de comparaison très variés (date, luminosité, condition atmosphérique, type de collision... (cf partie facteurs) grâce auxquels nous sommes en mesure d'établir certaines conclusions :
 <br>
-* Les points de chocs les plus meurtriers sont incontestablements les chocs avant, avec un pourcentage de ??????????. A l'inverse, un choc se produisant au côté gauche de la voiture est le moins critique, avec un taux de ??? %.
-* Les mois les plus meurtriers sont Juin et Juillet, il révèlent le plus haut pourcentage de décès de la route (???% pour Juin et ???? pour Juillet). En adéquation avec la période des départs en vacances, nous pouvons facilement en déduire que les accidents se produisent plus fréquemment et à une allure plus meurtrière dans ce contexte. En revanche, il est à noter que le mois d'Août affiche une baisse considérable du taux de décès, et montre alors que les vacanciers sont majoritairement tranquilles et ne prennent certainement pas leur voitures. Le pic d'accident meurtrier reprend de plus belle en septembre, lors du retour de vacances.
-* Nous démontrons qu'en prenant compte de tous les types de blessures confondus (indemne, meurtrier, blesser léger etc...), la ville est la zone la plus dangereuse avec un taux de ????% d'accidents.
-* La vitesse la plus meurtrière est inconstétablement 80-90 km/h, où ????% de victimes sont décédés contre ???% pour les autres kilométrages allant jusqu'à 150 km/h. La vitesse de 50 km/h en seconde place démontre bien notre précédente constatation et le danger de la ville face aux automobilistes.
-* Les femmes ont en moyenne moins d'accidents que les hommes tout au long de leur vie. Cependant, alors que la courbe des accidents d'hommes passés 55 ans se verra baisser, celle des femmes monte à ce moment-là.
+* Les points de chocs les plus meurtriers sont incontestablements les chocs avant, avec un pourcentage de 35,7 %. A l'inverse, un choc se produisant à l'arrière droit de la voiture est le moins critique, avec un taux de 1,88 %.
+* Les mois les plus meurtriers sont Juin et Juillet, il révèlent le plus haut pourcentage de décès de la route (9,6% pour Juin et 9,8% pour Juillet). En adéquation avec la période des départs en vacances, nous pouvons facilement en déduire que les accidents se produisent plus fréquemment et à une allure plus meurtrière dans ce contexte. En revanche, il est à noter que le mois d'Août affiche une baisse considérable du taux de décès, et montre alors que les vacanciers sont majoritairement tranquilles et ne prennent certainement pas leur voitures. Le pic d'accident meurtrier reprend de plus belle en septembre, lors du retour de vacances.
+* Nous démontrons qu'en prenant compte de tous les types de blessures confondus (indemne, meurtrier, blesser léger etc...), la ville est la zone la plus dangereuse avec un taux de 51,5 % d'accidents.
+* La vitesse la plus meurtrière est inconstétablement 80-90 km/h, où 44,4% de victimes sont décédés contre 4,7% en moyenne pour les autres kilométrages allant jusqu'à 150 km/h. La vitesse de 50 km/h en seconde place démontre bien notre précédente constatation et le danger de la ville face aux automobilistes.
+* Les femmes ont en moyenne moins d'accidents que les hommes tout au long de leur vie. Cependant, passé 56 ans, la probabilité pour une femme d'avoir un accident est plus forte que celle d'un homme.
 <br>
-Nous permettons à l'utilisateur de comparer des données très larges, répondant à des questionnements au delà de la problématique générale. Ainsi, nous avons pu relever que les jours les "plus meurtriers" était le 20 et 26, BLABLABLA ...........
+Nous permettons à l'utilisateur de comparer des données très larges, répondant à des questionnements au delà de la problématique générale. Ainsi, nous avons pu relever que les jours les "plus meurtriers" était le 20 et 26; que le taux de mortalité est plus élevé de jour que de nuit; la pluie légère provoque plus d'accidents que les autres conditions atmosphériques (neige, pluies fortes, etc...); il y a plus d'accidents dans les trajets de type loisirs / promenades que lors de trajet professionnel ou autre.
 
 ## User Guide
 
