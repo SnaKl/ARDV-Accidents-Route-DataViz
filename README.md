@@ -30,7 +30,7 @@ Nous permettons à l'utilisateur de comparer des données très larges, réponda
 #### Pré-requis
 
 Avoir installé le module python sur Visual Studio Code<br>
-Avoir installé un gestionnaire de paquet pour python (ici pip)
+Avoir installé le gestionnaire de paquet pour python **Conda** (on peut aussi utiliser pip)
 
 #### Installer projet via git
 Dans Visual Studio Code, clôner le répertoire git : https://github.com/SnaKl/ProjectPython, branche *master*
@@ -62,6 +62,30 @@ Le dashboard se compose de trois grandes parties :
    <br>Un filtre du facteur sélectionné se trouve **à droite** de l'histogramme, il permet de retirer les éléments souhaités.
    <br>
    
+##### Les facteurs de comparaison proposés
+   * Jour
+   * Mois  
+   * Heures
+   * Luminosité
+   * Condition Atmosphérique
+   * Type de collision
+   * Catégorie de route
+   * Régime de circulation
+   * Nombre total de voies de circulation
+   * Existence d’une voie réservée
+   * Déclivité de la route
+   * Tracé en plan
+   * Etat de la surface
+   * Vitesse maximale autorisée
+   * Gravité de blessure
+   * Sexe de l'usager
+   * Année de naissance de l'usager
+   * Motif du déplacement
+   * Point de choc initial
+   * Système de sécurité
+   
+   > Le programme a été codé de manière très évolutif, il est ainsi facile de rajouter un facteur (il doit être présent parmis la liste du document *description-des-bases-de-donnees-onisr-annees-2005-a-2019.pdf*)
+   
 #### Carte des accidents et ses diagrammes
    C'est une carte intéractive centrée sur la France mais avec laquelle on peut accéder aux autres pays du monde afin de respecter les données d'accidents des DOM TOM.
    <br>
@@ -88,10 +112,6 @@ Sous la carte, on retrouve trois diagrammes pouvant être mis à jour en fonctio
    <br>
    > Une troisième partie constituée d'un autre histogramme similaire à la première partie est en projet. Il aurait la même fonctionnalité mais spécifique à la zone choisie sur la carte.
 
-#### Les facteurs proposés
-
-
-#### Ses fonctionnalités
 
 ## Developper Guide
 
@@ -109,15 +129,26 @@ Le document PDF *description-des-bases-de-donnees-onisr-annees-2005-a-2019.pdf* 
  * Le document CSV *correspondance-code-insee-code-postal*, provenant de [datagouv.fr](https://www.data.gouv.fr/fr/datasets/correspondance-code-insee-code-postal/) assure la correspondance entre les codes postaux et les documents GeoJSON.
  
 ### Les documents geojson
+Les documents *communes.geojson* et *departements.geojson* sont utilisés pour instancier les données de la map. Ils sont reliés aux données des autres CSV via le numéro de département que l'on retrouve sur le document *correspondance-code-insee-code-postal*.  
+> Le fichier *regions.geojson* sera prochainement utilisé pour l'ajout de la fonctionnalité de filtre par régions.
+
+### Le fichier process_module.py
+
+Fichier contenant le code de la classe ClassMap générant tous le dashboard. Cela cause une lenteur au démarrage du programme mais permet ainsi de minimiser les processus une fois le dashboard lancé. L'utilisateur peut alors utiliser les fonctionnalités quasi-instantanément.<br>
+Cette classe rend le code très évolutif, en effet il est facile de rajouter des map ou des diagrammes qui seront générés automatiquement par la classe avec les bons paramètres.
+> De plus, un des projet futur pour le dashboard est l'ajout des données 2020 ainsi qu'un déploiement des résultats au niveau mondial, la classe permettra une telle évolution.
 
 
- 
- ### Le dossier geojson
+### Le fichier main.py
 
-Le format GeoJSON permet de décrire des données de type de point et d'y ajouter des attributs d'information qui ne sont pas spatiales.
-Ainsi, les fichiers geojson *communes.geojson*, *departements.geojson* et *regions.geojson* ont pour but
+Fichier appelant la méthode class et assurant la gestion de l'affichage du dashboard.
+Il contient les conditions permettant de :
+* afficher les données souhaitées lors d'un clic sur un radio bouton, une zone de la carte, un filtre etc...
+* permettre la sélection multiples de filtres et assurer l'affichage pertinant des choix suivants
+* détecte le type de zone que l'utilisateur sélectionne sur la map
 
-
-> ligne de code
-
-##Titre <a name="facteurs"></a>
+### Les erreurs de données
+Les fichiers CSV téléchargés possèdent quelques erreurs comprenant notamment :
+- des accidents répertoriés en plein océan
+- des usagers pouvant atteindre un âge de 115 ans
+- un kilométrage variant jusqu'à 800 km/h
