@@ -88,7 +88,7 @@ Le dashboard se compose de trois grandes parties :
    > Le programme a été codé de manière très évolutif, il est ainsi facile de rajouter un facteur (il doit être présent parmis la liste du document *description-des-bases-de-donnees-onisr-annees-2005-a-2019.pdf*)
    
 #### Carte des accidents et ses diagrammes
-   C'est une carte intéractive centrée sur la France mais avec laquelle on peut accéder aux autres pays du monde afin de respecter les données d'accidents des DOM TOM.
+   C'est une carte intéractive centrée sur la France avec laquelle on peut aussi accéder aux DOM TOM.
    <br>
    <br>Un filtre situé **au dessus** de la map permet de choisir si on souhaite afficher la carte selon les départements ou les communes. On peut aussi choisir d'afficher les résultats en focus ou par zoom. Ce dernier paramètre permet d'afficher la zone sélectionnée plus précisémment et ainsi afficher jusqu'aux petits points représentant les accidents. 
    > L'ajout d'un filtre par région est en cours de développement.
@@ -108,10 +108,12 @@ Sous la carte, on retrouve trois diagrammes pouvant être mis à jour en fonctio
    * Un diagramme circulaire du pourcentage du nombre d'accident par point de choc (arrière, avant, côtés etc...)
    <br>
    Ces diagrammes possèdent eux aussi leurs propres filtres, permettant ainsi de sélectionner une zone et un mode d'affichage sans forcément passer par la carte.
+ 
    > Projet de comparaison entre deux régions / communes / départements en cours
    <br>
-   <br>
-   > Une troisième partie constituée d'un autre histogramme similaire à la première partie est en projet. Il aurait la même fonctionnalité mais spécifique à la zone choisie sur la carte.
+   
+##### Histogramme secondaire  
+  Une troisième partie constituée d'un autre histogramme similaire au premier est présente sous les diagrammes par régions. Il a la même fonctionnalité mais est spécifique à la zone choisie sur la carte.
 
 
 ## Developper Guide
